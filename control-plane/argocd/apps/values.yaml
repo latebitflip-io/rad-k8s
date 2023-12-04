@@ -1,6 +1,0 @@
-spec:
-  destination:
-    server: https://kubernetes.default.svc
-  source:
-    repoURL: git@github.com:hpcbaecker/example-argocd.git
-    targetRevision: HEAD
