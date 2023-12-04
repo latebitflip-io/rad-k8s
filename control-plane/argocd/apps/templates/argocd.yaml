@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: 'https://argoproj.github.io/argo-helm'
-    targetRevision: 5.35.0
+    targetRevision: 3.29.5
     chart: argo-cd
     helm:
       values: |
@@ -25,7 +25,6 @@ spec:
               # kubernetes.io/ingress.class: ambassador ### For some ingress controllers required
         dex:
           enabled: "false"
-        
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
