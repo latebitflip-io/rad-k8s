@@ -3,8 +3,15 @@ a rad repo to jumpstart your k8s environment, the goal of this project is to pro
 - you host your code repos on github 
 - you use helm for deploying your services
 
-
+Make sure you have a cluster running and you can acccess it via kubectl.
 1. install helm 
+2. run ./bootstrap.sh
+3. kubectl port-forward service/argocd-server -n argocd 8080:443
+4. http://localhost:8080
+5. get `admin` credentials: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+6. login to argocd with `admin` and the password from the previous step
+7. create a credential template by using the connect repo, adding credentials for the root of your org
+
 
 
 - gitops first 

@@ -25,6 +25,7 @@ spec:
               # kubernetes.io/ingress.class: ambassador ### For some ingress controllers required
         dex:
           enabled: "false"
+        
   destination:
     server: {{ .Values.spec.destination.server }}
     namespace: argocd
