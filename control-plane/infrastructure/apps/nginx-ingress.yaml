@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-4"
+spec:
+  destination:
+    namespace: ingress-nginx
+    server: https://kubernetes.default.svc
+  project: infrastructure
+  source:
+    chart: ingress-nginx
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.4.2
+    helm:
+      values: |-
+        controller:
+          addHeaders:
+            X-INGRESS: "control-plane"
+          autoscaling:
+            enabled: true
+            maxReplicas: 10
+          config:
+            proxy-body-size: 50m
+            compute-full-forwarded-for: "true"
+            log-format-escape-json: "true"
+            log-format-upstream: '{"timestamp":"$time_iso8601","message":"$request_method $host$request_uri $status","httpRequest":{"ipCountry":"$http_cf_ipcountry", "globalRateLimitExceeding":"$global_rate_limit_exceeding", "latency":"$upstream_response_time s","protocol":"$server_protocol","referer":"$http_referer","remoteIp":"$remote_addr","requestMethod":"$request_method","requestSize":"$request_length","requestUrl":"$host$request_uri","responseSize":"$upstream_response_length","status":"$status","userAgent":"$http_user_agent"},"proxyAlternativeUpstreamName":"$proxy_alternative_upstream_name","proxyUpstreamName":"$proxy_upstream_name","requestID":"$req_id","upstreamAddr":"$upstream_addr","upstreamStatus":"$upstream_status"}'
+            use-forwarded-headers: "true"
+          #extraArgs:
+          #  default-ssl-certificate: ingress-nginx/ratehub-ca-cloudflare-origin-cert
+          topologySpreadConstraints:
+          - maxSkew: 1
+            topologyKey: topology.kubernetes.io/zone
+            whenUnsatisfiable: ScheduleAnyway
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: ingress-nginx
+                app.kubernetes.io/instance: ingress-nginx
+                app.kubernetes.io/component: controller
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+        defaultBackend:
+          enabled: true
+          nodeSelector: {}
+          resources:
+            requests:
+              cpu: 250m
+              memory: 128Mi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
