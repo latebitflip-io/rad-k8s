@@ -28,8 +28,6 @@ spec:
             log-format-escape-json: "true"
             log-format-upstream: '{"timestamp":"$time_iso8601","message":"$request_method $host$request_uri $status","httpRequest":{"ipCountry":"$http_cf_ipcountry", "globalRateLimitExceeding":"$global_rate_limit_exceeding", "latency":"$upstream_response_time s","protocol":"$server_protocol","referer":"$http_referer","remoteIp":"$remote_addr","requestMethod":"$request_method","requestSize":"$request_length","requestUrl":"$host$request_uri","responseSize":"$upstream_response_length","status":"$status","userAgent":"$http_user_agent"},"proxyAlternativeUpstreamName":"$proxy_alternative_upstream_name","proxyUpstreamName":"$proxy_upstream_name","requestID":"$req_id","upstreamAddr":"$upstream_addr","upstreamStatus":"$upstream_status"}'
             use-forwarded-headers: "true"
-          #extraArgs:
-          #  default-ssl-certificate: ingress-nginx/ratehub-ca-cloudflare-origin-cert
           topologySpreadConstraints:
           - maxSkew: 1
             topologyKey: topology.kubernetes.io/zone
