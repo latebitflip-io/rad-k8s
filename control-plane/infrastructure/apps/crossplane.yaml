@@ -11,8 +11,8 @@ spec:
     server: https://kubernetes.default.svc
   project: infrastructure
   source:
-    chart: ingress-nginx
-    repoURL: crossplane-stable/crossplane 
+    chart: crossplane-stable/crossplane 
+    repoURL: https://charts.crossplane.io/stable
     targetRevision: 1.14.3
     # helm:
     #   values: |-
