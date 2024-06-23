@@ -9,7 +9,7 @@ a rad repo to jump start your k8s environment, the goal of this project is to pr
 - install vault cli
 
 
-### Make sure a cluster ys running and that it is accessible with kubectl
+### Make sure a cluster (GCP, DO, AWS, Kind, Docker desktop) is running and that it is accessible with kubectl
 
 1. fork https://github.com/lateflip-io/rad-k8s name to whatever you like and make it private
 2. clone the repo locally or a running VM
