@@ -15,9 +15,9 @@ a rad repo to jump start your k8s environment, the goal of this project is to pr
 2. clone the repo locally or a running VM
 3. run ./bootstrap.sh
 4. kubectl port-forward vault-0 8200 &
-5. run: `vault kv put secret/credentials/github GITHUB_USER=username`
-6. run: `vault kv put secret/credentials/github GITHUB_PASS=password`
-7. run: `vault kv put secret/demosecret/aws GITHUB_REPO=`https://github.com/lateflip-io/rad-k8s.git`
+5. run: `vault kv put secret/credentials/github GITHUB_USER=base64-username`
+6. run: `vault kv put secret/credentials/github GITHUB_PASS=base64-password`
+7. run: `vault kv put secret/demosecret/aws GITHUB_REPO=base64-url`
 8. run: `kubectl apply -f control-plane/infrastructure/secrets/github-credential-template.yaml`
 8. kubectl port-forward service/argocd-server -n argocd 8080:443
 9. http://localhost:8080
