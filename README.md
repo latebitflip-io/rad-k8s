@@ -1,19 +1,33 @@
 # rad-k8s
-a rad repo to jumpstart your k8s environment, the goal of this project is to provide a simple way to get a k8s cluster up and running with everything you need to get started. It is opinionated and will be based on the following assumptions:
-- you host your code repos on github 
-- you use helm for deploying your services
+a rad repo to jump start your k8s environment, the goal of this project is to provide a simple way to get a k8s cluster up and running with everything needed to get started. It is opinionated and will be based on the following assumptions:
+- code repos on github 
+- helm is used for deploying your services
 
-Make sure you have a cluster running and you can acccess it via kubectl.
-1. install helm 
-2. run ./bootstrap.sh
-3. kubectl port-forward service/argocd-server -n argocd 8080:443
-4. http://localhost:8080
-5. get `admin` credentials: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-6. login to argocd with `admin` and the password from the previous step
-7. create a credential template by using the connect repo, adding credentials for the root of your org
+### Local machine or vm must that will bootstrap the cluster:
+- install helm 
+- install argocd cli
+- install vault cli
 
 
+### Make sure a cluster ys running and that it is accessible with kubectl
 
+1. fork https://github.com/lateflip-io/rad-k8s name to whatever you like and make it private
+2. clone the repo locally or a running VM
+3. run ./bootstrap.sh
+4. kubectl port-forward vault-0 8200 &
+5. run: `vault kv put secret/credentials/github GITHUB_USER=username`
+6. run: `vault kv put secret/credentials/github GITHUB_PASS=password`
+7. run: `vault kv put secret/demosecret/aws GITHUB_REPO=`https://github.com/lateflip-io/rad-k8s.git`
+8. run: `kubectl apply -f control-plane/infrastructure/secrets/github-credential-template.yaml`
+8. kubectl port-forward service/argocd-server -n argocd 8080:443
+9. http://localhost:8080
+10. get `admin` credentials: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+11. login to argocd with `admin` and the password
+12.
+13.
+
+
+## This will setup the following: 
 - gitops first 
 - argocd for syncing 
 - crossplane for provisioning
