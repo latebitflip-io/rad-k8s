@@ -9,7 +9,7 @@ spec:
   project: infrastructure
   source:
     repoURL: 'oci://ghcr.io/bank-vaults/helm-charts/vault-operator'
-    targetRevision: latest
+    targetRevision: 1.31.1
     chart: vault-operator
     #helm:
     #  values: |
