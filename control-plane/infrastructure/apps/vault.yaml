@@ -8,8 +8,8 @@ metadata:
 spec:
   project: infrastructure
   source:
-    repoURL: 'oci://ghcr.io/bank-vaultsi/helm-charts'
-    targetRevision: "2"
+    repoURL: 'ghcr.io/bank-vaults/helm-charts'
+    targetRevision: 1.22.2
     chart: vault-operator
     #helm:
     #  values: |
