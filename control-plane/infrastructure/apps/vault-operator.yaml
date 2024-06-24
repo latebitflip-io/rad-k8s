@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault-operator
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: infrastructure
+  source:
+    repoURL: 'ghcr.io/bank-vaults/helm-charts'
+    targetRevision: 1.22.2
+    chart: vault-operator
+    #helm:
+    #  values: |
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy: 
+    automated:
+      prune: true
+      selfHeal: true
