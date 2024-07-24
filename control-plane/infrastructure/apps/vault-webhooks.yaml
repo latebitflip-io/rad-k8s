@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name:  vault-secrets-webhook
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: infrastructure
+  source:
+    repoURL: 'ghcr.io/bank-vaults/helm-charts'
+    targetRevision: 1.21.2
+    chart: vault-secrets-webhook
+    #helm:
+    #  values: |
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault-infra
+  syncPolicy: 
+    automated:
+      prune: true
+      selfHeal: true
